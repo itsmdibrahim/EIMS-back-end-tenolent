@@ -1,5 +1,9 @@
 const express = require("express");
-const { courseAdd, courseGet } = require("../controller/course.js");
+const {
+  courseAdd,
+  courseGet,
+  courseOnePersonGet,
+} = require("../controller/course.js");
 
 const router = express.Router();
 
@@ -7,5 +11,7 @@ const router = express.Router();
 router.post("/add", courseAdd);
 // get course
 router.get("/get", courseGet);
+// get course
+router.get("/one-person/get/:userId", courseOnePersonGet);
 
 module.exports = router;
