@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Course = require("../models/Course");
 
 function capitalizeFirstLetter(input) {
@@ -32,9 +33,20 @@ function trimObjectValues(obj) {
 
   return trimmedObj;
 }
+// Convert nested ObjectId strings in req.body
+function convertObjectId(obj) {
+  for (const key in obj) {
+    if (typeof obj[key] === "string" && mongoose.isValidObjectId(obj[key])) {
+      obj[key] = new mongoose.Types.ObjectId(obj[key]);
+    } else if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+      convertObjectId(obj[key]); // Recursively handle nested objects
+    }
+  }
+}
 
 const courseAdd = async (req, res) => {
   const trimedObj = trimObjectValues(req.body);
+  const convObj = convertObjectId(trimedObj);
 
   try {
     const newCourse = new Course(trimedObj);
@@ -47,9 +59,24 @@ const courseAdd = async (req, res) => {
   }
 };
 const courseGet = async (req, res) => {
-
   try {
     const result = await Course.find();
+
+    res.status(200).json({ data: result, message: "data was saved!" });
+  } catch (err) {
+    console.error(err, err.message);
+    res.status(500).json({ message: err.message });
+  }
+};
+const courseOnePersonGet = async (req, res) => {
+  let { userId } = req.params;
+
+  console.log(userId);
+
+  try {
+    const result = await Course.find({
+      userInfo: new mongoose.Types.ObjectId(userId),
+    });
 
     res.status(200).json({ data: result, message: "data was saved!" });
   } catch (err) {
@@ -60,5 +87,6 @@ const courseGet = async (req, res) => {
 
 module.exports = {
   courseAdd,
-  courseGet
+  courseGet,
+  courseOnePersonGet,
 };
