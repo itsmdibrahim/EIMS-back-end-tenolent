@@ -46,7 +46,19 @@ const courseAdd = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+const courseGet = async (req, res) => {
+
+  try {
+    const result = await Course.find();
+
+    res.status(200).json({ data: result, message: "data was saved!" });
+  } catch (err) {
+    console.error(err, err.message);
+    res.status(500).json({ message: err.message });
+  }
+};
 
 module.exports = {
   courseAdd,
+  courseGet
 };

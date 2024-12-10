@@ -9,6 +9,7 @@ function getPayload(user) {
     user: {
       id: user.id,
       userType: user.userType,
+      name: user.name ? user.name : ``,
       contact: user.contact ? user.contact : ``,
       address: user.address ? user.address : ``,
       email: user.email,

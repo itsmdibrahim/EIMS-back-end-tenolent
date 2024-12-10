@@ -46,6 +46,9 @@ const authSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    name:{
+      type: String,
+    },
     contact: {
       type: String,
     },

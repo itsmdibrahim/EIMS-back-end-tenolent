@@ -56,7 +56,7 @@ const courseSchema = new mongoose.Schema(
       required: true,
     },
     filesUrl: [fileUrlSchema],
-    scheduleInfo: scheduleSchema,
+    scheduleInfo: [scheduleSchema],
   },
   { timestamps: true }
 );
