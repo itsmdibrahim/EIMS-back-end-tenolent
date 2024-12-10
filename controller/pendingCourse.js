@@ -42,7 +42,20 @@ const pendingCourseAdd = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+const pendingCourseGet = async (req, res) => {
+  try {
+    const result = await PendingCourse.find().populate("userInfo");
+
+    console.log(result);
+
+    res.status(200).json({ data: result, message: "data was saved!" });
+  } catch (err) {
+    console.error(err, err.message);
+    res.status(500).json({ message: err.message });
+  }
+};
 
 module.exports = {
   pendingCourseAdd,
+  pendingCourseGet,
 };

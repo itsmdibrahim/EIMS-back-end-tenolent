@@ -28,7 +28,7 @@ mongoose
 
 // Routes
 const authRoutes = require("./routes/auth");
-const courseRoutes = require("./routes/auth");
+const courseRoutes = require("./routes/course");
 const pendingCourseRoutes = require("./routes/pendingCourse");
 const { auth } = require("./middleware/auth");
 // Apply middleware globally
