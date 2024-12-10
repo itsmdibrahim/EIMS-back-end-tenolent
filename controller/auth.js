@@ -154,13 +154,17 @@ const authFacultyStatusUpdate = async (req, res) => {
 
 const authChangeUserProfile = async (req, res) => {
   let { id } = req.params;
-  let { firstName, lastName } = req.body;
+  let { name, contact, address } = req.body;
 
   try {
     let user = await Auth.findByIdAndUpdate(
       id,
       {
-        $set: { firstName, lastName },
+        $set: {
+          name: name ? name : ``,
+          contact: contact ? contact : ``,
+          address: address ? address : ``,
+        },
       },
       { new: true }
     );

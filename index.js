@@ -28,12 +28,14 @@ mongoose
 
 // Routes
 const authRoutes = require("./routes/auth");
-const courseRoutes = require("./routes/course.js");
+const courseRoutes = require("./routes/auth");
+const pendingCourseRoutes = require("./routes/pendingCourse");
 const { auth } = require("./middleware/auth");
 // Apply middleware globally
 
 app.use("/api/auth", authRoutes);
 app.use("/api/course", auth, courseRoutes);
+app.use("/api/pending-course", auth, pendingCourseRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

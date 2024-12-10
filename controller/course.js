@@ -84,9 +84,22 @@ const courseOnePersonGet = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+const courseDelete = async (req, res) => {
+  let { id } = req.params;
+
+  try {
+    const result = await Course.findByIdAndDelete(id);
+
+    res.status(200).json({ data: result, message: "data was saved!" });
+  } catch (err) {
+    console.error(err, err.message);
+    res.status(500).json({ message: err.message });
+  }
+};
 
 module.exports = {
   courseAdd,
   courseGet,
   courseOnePersonGet,
+  courseDelete,
 };
